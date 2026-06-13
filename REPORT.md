@@ -7,8 +7,8 @@ Bài toán được chọn là **IBM Employee Attrition Dataset**, thuộc dạn
 **Mục tiêu:** Dự đoán một nhân viên có nghỉ việc hay không dựa trên các đặc trưng cá nhân và công việc như tuổi tác, thu nhập, phòng ban, sự hài lòng trong công việc, v.v.
 
 **Biến mục tiêu:** `Attrition`
-- `Yes` (nghỉ việc) → mã hóa thành `1`
-- `No` (ở lại) → mã hóa thành `0`
+- `Yes` (nghỉ việc) => mã hóa thành `1`
+- `No` (ở lại) => mã hóa thành `0`
 
 **Ứng dụng thực tế:** Bài toán này có ý nghĩa quan trọng trong quản lý nhân sự. Dự đoán sớm nhân viên có nguy cơ nghỉ việc giúp doanh nghiệp chủ động giữ chân nhân tài, tiết kiệm chi phí tuyển dụng và đào tạo.
 
@@ -60,7 +60,7 @@ Bài toán được chọn là **IBM Employee Attrition Dataset**, thuộc dạn
 | No (Ở lại) | 1.233 | 83.9% |
 | Yes (Nghỉ việc) | 237 | 16.1% |
 
-**Nhận xét:** Dataset bị **mất cân bằng lớp nghiêm trọng** — tỷ lệ nhân viên nghỉ việc chỉ chiếm ~16%. Đây là đặc điểm điển hình của bài toán dự đoán nghỉ việc trong thực tế. Sự mất cân bằng này ảnh hưởng đáng kể đến kết quả mô hình và buộc ta phải ưu tiên F1-score thay vì Accuracy.
+**Nhận xét:** Dataset bị **mất cân bằng lớp nghiêm trọng** - tỷ lệ nhân viên nghỉ việc chỉ chiếm ~16%. Đây là đặc điểm điển hình của bài toán dự đoán nghỉ việc trong thực tế. Sự mất cân bằng này ảnh hưởng đáng kể đến kết quả mô hình và buộc ta phải ưu tiên F1-score thay vì Accuracy.
 
 ### 3.3. Thống kê mô tả
 
@@ -87,8 +87,8 @@ Từ biểu đồ boxplot theo Attrition có thể thấy:
 
 ### 4.1. Làm sạch dữ liệu
 
-- **Giá trị thiếu:** Không có → không cần xử lý.
-- **Dữ liệu trùng lặp:** Không có → không cần xử lý.
+- **Giá trị thiếu:** Không có => không cần xử lý.
+- **Dữ liệu trùng lặp:** Không có => không cần xử lý.
 - **Chuẩn hóa chuỗi:** Strip khoảng trắng đầu/cuối cho các cột kiểu object.
 
 ### 4.2. Mã hóa biến mục tiêu
@@ -105,8 +105,8 @@ y = df["Attrition"].map({"Yes": 1, "No": 0})
 ### 4.4. Xử lý đặc trưng trong Pipeline
 
 Sử dụng `ColumnTransformer` trong `Pipeline` để tránh data leakage:
-- **Biến số (9 cột):** `StandardScaler` — chuẩn hóa về mean=0, std=1
-- **Biến phân loại (3 cột):** `OneHotEncoder` — mã hóa one-hot
+- **Biến số (9 cột):** `StandardScaler` - chuẩn hóa về mean=0, std=1
+- **Biến phân loại (3 cột):** `OneHotEncoder` - mã hóa one-hot
 
 ### 4.5. Chia train/test
 
@@ -153,33 +153,33 @@ Huấn luyện 4 mô hình:
 
 #### Logistic Regression (tốt nhất)
 
-- `Test F1 = 0.3514` — cao nhất trong các mô hình.
-- `Test ROC-AUC = 0.6789` — cao nhất, cho thấy khả năng phân biệt lớp tốt nhất.
-- `Test Recall = 0.5532` — mô hình tìm được hơn 55% nhân viên có khả năng nghỉ việc.
-- Khoảng cách Train F1 (0.428) và Test F1 (0.351) không quá lớn → ít overfitting.
+- `Test F1 = 0.3514` - cao nhất trong các mô hình.
+- `Test ROC-AUC = 0.6789` - cao nhất, cho thấy khả năng phân biệt lớp tốt nhất.
+- `Test Recall = 0.5532` - mô hình tìm được hơn 55% nhân viên có khả năng nghỉ việc.
+- Khoảng cách Train F1 (0.428) và Test F1 (0.351) không quá lớn => ít overfitting.
 - Mô hình tuyến tính phù hợp làm baseline cho bài toán nhị phân mất cân bằng.
 
 #### KNN
 
 - Accuracy test cao (0.8401) nhưng chủ yếu do dự đoán tốt lớp đa số (ở lại).
-- `Test F1 = 0.1132` — rất thấp, cho thấy mô hình hầu như không phát hiện được nhân viên nghỉ việc.
-- `Test Recall = 0.064` — chỉ tìm được ~6% nhân viên thực sự nghỉ.
+- `Test F1 = 0.1132` - rất thấp, cho thấy mô hình hầu như không phát hiện được nhân viên nghỉ việc.
+- `Test Recall = 0.064` - chỉ tìm được ~6% nhân viên thực sự nghỉ.
 - KNN nhạy với tỷ lệ lớp mất cân bằng và không hỗ trợ `class_weight`.
 
 #### Decision Tree (max_depth=5)
 
 - `Test F1 = 0.2381`, `Test Recall = 0.3191`.
-- Train F1 (0.527) cao hơn Test F1 (0.238) đáng kể → có dấu hiệu overfitting dù đã giới hạn độ sâu.
-- ROC-AUC thấp (0.485) — gần với mô hình đoán ngẫu nhiên.
+- Train F1 (0.527) cao hơn Test F1 (0.238) đáng kể => có dấu hiệu overfitting dù đã giới hạn độ sâu.
+- ROC-AUC thấp (0.485) - gần với mô hình đoán ngẫu nhiên.
 
 #### Random Forest
 
 - Accuracy test cao (0.8367) nhưng Test F1 chỉ đạt 0.2000.
-- `Test Recall = 0.1277` — rất thấp, mô hình bỏ sót nhiều nhân viên nghỉ việc.
-- Train F1 (0.979) vs Test F1 (0.200) — chênh lệch rất lớn → **overfitting nghiêm trọng** mặc dù đã dùng `class_weight="balanced"`.
+- `Test Recall = 0.1277` - rất thấp, mô hình bỏ sót nhiều nhân viên nghỉ việc.
+- Train F1 (0.979) vs Test F1 (0.200) - chênh lệch rất lớn => **overfitting nghiêm trọng** mặc dù đã dùng `class_weight="balanced"`.
 - Paradox của Random Forest trên dữ liệu mất cân bằng: accuracy cao nhưng recall lớp thiểu số rất thấp.
 
-### 6.3. Confusion Matrix (Logistic Regression — mô hình tốt nhất)
+### 6.3. Confusion Matrix (Logistic Regression - mô hình tốt nhất)
 
 |  | Dự đoán: No | Dự đoán: Yes |
 |---|---:|---:|
@@ -187,8 +187,8 @@ Huấn luyện 4 mô hình:
 | **Thực tế: Yes** | 21 | 26 |
 
 - Mô hình phát hiện được 26/47 nhân viên nghỉ việc (Recall = 55%).
-- 102 trường hợp False Positive (dự đoán nghỉ nhưng thực ra ở lại) — chi phí thấp (có thể can thiệp giữ chân không cần thiết).
-- 21 trường hợp False Negative (bỏ sót nhân viên nghỉ) — chi phí cao hơn về mặt nghiệp vụ.
+- 102 trường hợp False Positive (dự đoán nghỉ nhưng thực ra ở lại) - chi phí thấp (có thể can thiệp giữ chân không cần thiết).
+- 21 trường hợp False Negative (bỏ sót nhân viên nghỉ) - chi phí cao hơn về mặt nghiệp vụ.
 
 ---
 
@@ -202,16 +202,16 @@ Lý do chọn:
 - Test F1 cao nhất (0.3514), cân bằng giữa Precision và Recall.
 - Test ROC-AUC cao nhất (0.6789), cho thấy khả năng phân biệt lớp tốt nhất.
 - Ít overfitting nhất trong các mô hình (gap train-test nhỏ).
-- Recall 0.553 — tốt nhất, phù hợp với mục tiêu nghiệp vụ là phát hiện nhân viên có nguy cơ nghỉ.
+- Recall 0.553 - tốt nhất, phù hợp với mục tiêu nghiệp vụ là phát hiện nhân viên có nguy cơ nghỉ.
 
 ### 7.2. Dấu hiệu overfitting/underfitting
 
 | Mô hình | Nhận định |
 |---|---|
-| Logistic Regression | Ổn định, gap train-test nhỏ — ít overfitting |
-| KNN | Underfitting đối với lớp thiểu số — không học được pattern nghỉ việc |
-| Decision Tree | Overfitting nhẹ — Train F1 cao hơn Test F1 đáng kể |
-| Random Forest | **Overfitting nặng** — Train F1=0.98 nhưng Test F1=0.20 |
+| Logistic Regression | Ổn định, gap train-test nhỏ - ít overfitting |
+| KNN | Underfitting đối với lớp thiểu số - không học được pattern nghỉ việc |
+| Decision Tree | Overfitting nhẹ - Train F1 cao hơn Test F1 đáng kể |
+| Random Forest | **Overfitting nặng** - Train F1=0.98 nhưng Test F1=0.20 |
 
 ### 7.3. Validation Curve của Decision Tree
 
@@ -224,13 +224,13 @@ Lý do chọn:
 | 10 | 0.801 | 0.140 | 0.464 |
 | None | 1.000 | 0.174 | 0.510 |
 
-**Nhận xét:** Test F1 tốt nhất ở `max_depth=2` (0.317). Khi cây sâu hơn, Train F1 tăng nhưng Test F1 giảm — dấu hiệu overfitting điển hình. Với `max_depth=None`, Train F1 đạt 1.0 nhưng Test F1 chỉ còn 0.174.
+**Nhận xét:** Test F1 tốt nhất ở `max_depth=2` (0.317). Khi cây sâu hơn, Train F1 tăng nhưng Test F1 giảm - dấu hiệu overfitting điển hình. Với `max_depth=None`, Train F1 đạt 1.0 nhưng Test F1 chỉ còn 0.174.
 
 ### 7.4. Khó khăn gặp phải
 
 1. **Mất cân bằng lớp nghiêm trọng (16% vs 84%):** Đây là thách thức lớn nhất. Các mô hình có xu hướng dự đoán tất cả là "No" để đạt Accuracy cao, nhưng lại bỏ sót hầu hết trường hợp nghỉ việc thực sự. Đã xử lý bằng `class_weight="balanced"` nhưng vẫn chưa đủ.
 
-2. **Feature hạn chế:** Dataset chỉ có 12 đặc trưng. Dataset IBM đầy đủ gốc có tới 35 cột — việc dùng bản rút gọn 13 cột làm mất nhiều thông tin quan trọng như `OverTime`, `JobLevel`, `StockOptionLevel`.
+2. **Feature hạn chế:** Dataset chỉ có 12 đặc trưng. Dataset IBM đầy đủ gốc có tới 35 cột - việc dùng bản rút gọn 13 cột làm mất nhiều thông tin quan trọng như `OverTime`, `JobLevel`, `StockOptionLevel`.
 
 3. **F1-score tổng thể thấp:** Ngay cả mô hình tốt nhất chỉ đạt Test F1 = 0.35, cho thấy bài toán thực sự khó với bộ đặc trưng hiện tại.
 
@@ -241,10 +241,10 @@ Lý do chọn:
 ### Kết luận
 
 - Dataset được chọn: IBM Employee Attrition (1.470 mẫu, 13 đặc trưng).
-- Biến mục tiêu: `Attrition` (Yes/No) — bài toán Classification nhị phân.
+- Biến mục tiêu: `Attrition` (Yes/No) - bài toán Classification nhị phân.
 - Mô hình tốt nhất: **Logistic Regression** với `Test F1 = 0.3514`, `Test ROC-AUC = 0.6789`.
 - Kết quả chưa cao chủ yếu do mất cân bằng lớp nặng và bộ đặc trưng hạn chế.
-- Không nên chỉ dùng Accuracy để đánh giá — cần ưu tiên F1-score và Recall trong bài toán này.
+- Không nên chỉ dùng Accuracy để đánh giá - cần ưu tiên F1-score và Recall trong bài toán này.
 
 ### Hướng cải thiện
 
@@ -254,6 +254,6 @@ Lý do chọn:
 
 3. **Thử các mô hình mạnh hơn:** GradientBoostingClassifier hoặc XGBoost thường cho kết quả tốt hơn trên dữ liệu mất cân bằng.
 
-4. **Điều chỉnh threshold phân loại:** Thay vì dùng ngưỡng 0.5, hạ threshold xuống (ví dụ 0.3) để tăng Recall — phù hợp với mục tiêu nghiệp vụ là phát hiện sớm nhân viên có nguy cơ nghỉ.
+4. **Điều chỉnh threshold phân loại:** Thay vì dùng ngưỡng 0.5, hạ threshold xuống (ví dụ 0.3) để tăng Recall - phù hợp với mục tiêu nghiệp vụ là phát hiện sớm nhân viên có nguy cơ nghỉ.
 
 5. **Feature engineering:** Tạo thêm đặc trưng mới như `IncomePerYear = MonthlyIncome / YearsAtCompany`, hoặc nhóm các mức satisfaction thành High/Low.
