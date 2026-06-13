@@ -122,6 +122,7 @@ def save_metrics(results_df: pd.DataFrame, trained_models: dict, X_test, y_test,
 # Figures ─────────────────────────────────────────────────────────
 def save_confusion_matrices(trained_models: dict, X_test, y_test, figures_evaluate_dir: Path):
     figures_evaluate_dir = Path(figures_evaluate_dir)
+    figures_evaluate_dir.mkdir(parents=True, exist_ok=True)
     for name, model in trained_models.items():
         y_pred = model.predict(X_test)
         cm = confusion_matrix(y_test, y_pred)
@@ -134,13 +135,14 @@ def save_confusion_matrices(trained_models: dict, X_test, y_test, figures_evalua
     
 def save_roc_curves(trained_models: dict, X_test, y_test, figures_evaluate_dir: Path):
     figures_evaluate_dir = Path(figures_evaluate_dir)
+    figures_evaluate_dir.mkdir(parents=True, exist_ok=True)
     plt.figure(figsize=(8,6))
     colors = ["#2196F3", "#4CAF50", "#FF9800", "#9C27B0"]
     for (name, model), color in zip(trained_models.items(), colors):
         scores = _predict_scores(model, X_test)
         fpr, tpr, _ = roc_curve(y_test, scores)
         auc = roc_auc_score(y_test, scores)
-    plt.plot(fpr, tpr, label=f"{name} (AUC={auc:.3f})", color=color, linewidth=2)
+        plt.plot(fpr, tpr, label=f"{name} (AUC={auc:.3f})", color=color, linewidth=2)
     plt.plot([0, 1], [0, 1], "--", color="gray", label="Random")
     plt.xlabel("False Positive Rate")
     plt.ylabel("True Positive Rate")
@@ -152,6 +154,7 @@ def save_roc_curves(trained_models: dict, X_test, y_test, figures_evaluate_dir: 
 
 def save_model_comparison_chart(results_df: pd.DataFrame, figures_evaluate_dir: Path):
     figures_evaluate_dir = Path(figures_evaluate_dir)
+    figures_evaluate_dir.mkdir(parents=True, exist_ok=True)
     metrics = ["Test Accuracy", "Test Precision", "Test Recall", "Test F1", "Test ROC-AUC"]
     fig, axes = plt.subplots(1, len(metrics), figsize=(22, 5))
     palette = sns.color_palette("Set2", len(results_df))
@@ -173,6 +176,7 @@ def save_model_comparison_chart(results_df: pd.DataFrame, figures_evaluate_dir: 
 def save_feature_importance(trained_models: dict, numeric_features: list,
                              categorical_features: list, figures_evaluate_dir: Path):
     figures_evaluate_dir = Path(figures_evaluate_dir)
+    figures_evaluate_dir.mkdir(parents=True, exist_ok=True)
     rf = trained_models.get("Random Forest")
     if rf is None:
         return
@@ -203,6 +207,7 @@ def save_learning_curves(
     from .classification_models import get_estimators
 
     figures_evaluate_dir = Path(figures_evaluate_dir)
+    figures_evaluate_dir.mkdir(parents=True, exist_ok=True)
     metrics_dir = Path(metrics_dir)
     ratios = np.linspace(0.1, 1.0, 10)
     rows = []
@@ -249,7 +254,9 @@ def save_validation_curve_dt(
     figures_evaluate_dir: Path, metrics_dir: Path,
 ):
     figures_evaluate_dir = Path(figures_evaluate_dir)
+    figures_evaluate_dir.mkdir(parents=True, exist_ok=True)
     metrics_dir = Path(metrics_dir)
+    metrics_dir.mkdir(parents=True, exist_ok=True)
     
     depths = [1, 2, 3, 4, 5, 7, 10, 15, None]
     rows = []

@@ -1,0 +1,12 @@
+{
+  "Model": "Random Forest",
+  "Train Accuracy": 0.993197,
+  "Test Accuracy": 0.836735,
+  "Train Precision": 0.989247,
+  "Test Precision": 0.461538,
+  "Train Recall": 0.968421,
+  "Test Recall": 0.12766,
+  "Train F1": 0.978723,
+  "Test F1": 0.2,
+  "Test ROC-AUC": 0.654148
+}

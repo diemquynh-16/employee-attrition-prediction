@@ -43,7 +43,7 @@ def load_and_clean(path: Path) -> pd.DataFrame:
         df[col] = df[col].str.strip()
 
     before = len(df)
-    df.drop_duplicates()
+    df = df.drop_duplicates()
     n_dup = before - len(df)
 
     n_missing = df.isnull().sum().sum()
@@ -54,7 +54,7 @@ def load_and_clean(path: Path) -> pd.DataFrame:
                 if df[col].dtype in ["int64", "float64"]:
                     df[col].fillna(df[col].median(), inplace=True)
                 else:
-                    df[col].fillna(df[col].mode(), inplace=True)
+                    df[col].fillna(df[col].mode()[0], inplace=True)
     
     print(f"[Preprocessing] Load: {before} dòng | Trùng lặp xóa: {n_dup} | Xử lý missing values: {n_missing}")
     print(f"[preprocessing] Kích thước sau làm sạch: {df.shape}")

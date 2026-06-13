@@ -1,0 +1,12 @@
+{
+  "Model": "KNN",
+  "Train Accuracy": 0.855442,
+  "Test Accuracy": 0.840136,
+  "Train Precision": 0.717391,
+  "Test Precision": 0.5,
+  "Train Recall": 0.173684,
+  "Test Recall": 0.06383,
+  "Train F1": 0.279661,
+  "Test F1": 0.113208,
+  "Test ROC-AUC": 0.614825
+}

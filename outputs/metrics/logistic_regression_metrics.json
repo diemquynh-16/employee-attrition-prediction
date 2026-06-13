@@ -1,0 +1,12 @@
+{
+  "Model": "Logistic Regression",
+  "Train Accuracy": 0.695578,
+  "Test Accuracy": 0.673469,
+  "Train Precision": 0.307339,
+  "Test Precision": 0.257426,
+  "Train Recall": 0.705263,
+  "Test Recall": 0.553191,
+  "Train F1": 0.428115,
+  "Test F1": 0.351351,
+  "Test ROC-AUC": 0.67887
+}
