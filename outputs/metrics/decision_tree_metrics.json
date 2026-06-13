@@ -1,12 +1,12 @@
 {
   "Model": "Decision Tree",
-  "Train Accuracy": 0.796769,
-  "Test Accuracy": 0.673469,
-  "Train Precision": 0.422222,
-  "Test Precision": 0.189873,
-  "Train Recall": 0.7,
-  "Test Recall": 0.319149,
-  "Train F1": 0.526733,
-  "Test F1": 0.238095,
-  "Test ROC-AUC": 0.485098
+  "Train Accuracy": 0.758503,
+  "Test Accuracy": 0.653061,
+  "Train Precision": 0.367978,
+  "Test Precision": 0.222222,
+  "Train Recall": 0.689474,
+  "Test Recall": 0.468085,
+  "Train F1": 0.479853,
+  "Test F1": 0.30137,
+  "Test ROC-AUC": 0.56973
 }

@@ -31,6 +31,7 @@ def get_estimators() -> dict:
         ),
 
         "Decision Tree": DecisionTreeClassifier(
+            max_leaf_nodes=10,
             max_depth=5,
             random_state=42,
             class_weight="balanced",
