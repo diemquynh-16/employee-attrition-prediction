@@ -9,7 +9,7 @@
 ## ***Cấu trúc thư mục***
 
 ```
-IBM-Classification/
+HW2_24280042_QuangDiemQuynh/
 ├── data/
 │   ├── IBM.csv                         # Dataset gốc (1470 mẫu, 13 cột)
 │   └── README.md                       # Mô tả dataset
@@ -25,15 +25,13 @@ IBM-Classification/
 │   └── evaluation.py                   # Tính chỉ số, vẽ biểu đồ, lưu kết quả
 │
 ├── outputs/
-│   ├── figures_eda/                    # Biểu đồ EDA (histogram, boxplot, heatmap, ...)
-│   ├── figures_evaluate/               # Biểu đồ đánh giá (confusion matrix, ROC, learning curve, ...)
+│   ├── figures_eda/                    # Biểu đồ EDA (target distribution, continuous, ordinal, categorical, outlier, correlation)
+│   ├── figures_evaluate/               # Biểu đồ đánh giá (confusion matrix, ROC, model comparison, learning/validation curve, feature importance)
 │   ├── models/                         # Mô hình đã train (.pkl)
-│   └── metrics/                        # Kết quả đánh giá (CSV + JSON)
+│   └── metrics/                        # Kết quả đánh giá (results.csv, classification_reports.csv, learning/validation curve, JSON từng mô hình)
 │
-├── reports/
-│   ├── report.md                       # Báo cáo 
-│   └── NHAN_XET_KET_QUA.md             # Nhận xét chi tiết từng mô hình
-│
+├── REPORT.md                           # Báo cáo chính
+├── NHAN_XET_KET_QUA.md                 # Nhận xét chi tiết kết quả từng mô hình
 ├── main.py                             # Pipeline end-to-end
 ├── README.md
 └── requirements.txt
@@ -83,18 +81,19 @@ Chương trình sẽ tự động chạy toàn bộ quy trình và lưu kết qu
 ```
 outputs/
 ├── figures_eda/
-│   ├── target_distribution.png
-│   ├── continuous_features.png
-│   ├── ordinal_features.png
-│   ├── categorical_features.png
-│   ├── outliers_boxplot.png
-│   └── correlation_heatmap.png
+│   ├── eda_01_target_distribution.png
+│   ├── eda_02_continuous_features.png
+│   ├── eda_03_ordinal_features.png
+│   ├── eda_04_categorical.png
+│   ├── eda_05_outliers_boxplot.png
+│   ├── eda_06_correlation_heatmap.png
+│   └── eda_07_correlation_with_target.png
 │
 ├── figures_evaluate/
-│   ├── confustion_matrix_logistic_regression.png
-│   ├── confustion_matrix_decision_tree.png
-│   ├── confustion_matrix_random_forest.png
-│   ├── confustion_matrix_knn.png
+│   ├── confusion_matrix_logistic_regression.png
+│   ├── confusion_matrix_decision_tree.png
+│   ├── confusion_matrix_random_forest.png
+│   ├── confusion_matrix_knn.png
 │   ├── roc_curves.png
 │   ├── model_comparison_all_metrics.png
 │   ├── feature_importance_random_forest.png

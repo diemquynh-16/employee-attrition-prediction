@@ -51,7 +51,7 @@ Giải thích:
 
 - Learning curve: Train và Test F1 hội tụ dần khi thêm dữ liệu - dấu hiệu mô hình ổn định, không overfitting.
 
-### Decision Tree (max_depth=5, min_samples_leaf=10)
+### Decision Tree (max_depth=5, max_leaf_nodes=10)
 
 - Train F1 = 0.48 | Test F1 = 0.301 => có dấu hiệu overfitting rõ rệt và khả năng tổng quát hóa trên dữ liệu mới còn kém
 

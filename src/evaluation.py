@@ -130,7 +130,7 @@ def save_confusion_matrices(trained_models: dict, X_test, y_test, figures_evalua
         display.plot(cmap="Blues", values_format="d")
         plt.title(f"Confusion Matrix: {name}", fontsize=12, fontweight="bold")
         plt.tight_layout()
-        plt.savefig(figures_evaluate_dir / f"confustion_matrix_{_slug(name)}.png", dpi = 150)
+        plt.savefig(figures_evaluate_dir / f"confusion_matrix_{_slug(name)}.png", dpi = 150)
         plt.close()
     
 def save_roc_curves(trained_models: dict, X_test, y_test, figures_evaluate_dir: Path):
