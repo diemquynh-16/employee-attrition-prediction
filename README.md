@@ -30,7 +30,7 @@ HW2_24280042_QuangDiemQuynh/
 │   ├── models/                         # Mô hình đã train (.pkl)
 │   └── metrics/                        # Kết quả đánh giá (results.csv, classification_reports.csv, learning/validation curve, JSON từng mô hình)
 │
-├── REPORT.md                           # Báo cáo chính
+├── REPORT.md                           # Báo cáo
 ├── NHAN_XET_KET_QUA.md                 # Nhận xét chi tiết kết quả từng mô hình
 ├── main.py                             # Pipeline end-to-end
 ├── README.md
