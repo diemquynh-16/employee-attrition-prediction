@@ -288,15 +288,15 @@ Lý do chọn:
 
 ### ***Kết luận***
 
-- Dataset được chọn: IBM Employee Attrition (1.470 mẫu, 13 đặc trưng).
-- Biến mục tiêu: `Attrition` (Yes/No) - bài toán Classification nhị phân.
-- Mô hình tốt nhất: **Logistic Regression** với `Test F1 = 0.3514`, `Test ROC-AUC = 0.6789`.
-- Kết quả chưa cao chủ yếu do mất cân bằng lớp nặng và bộ đặc trưng hạn chế.
-- Không nên chỉ dùng Accuracy để đánh giá - cần ưu tiên F1-score và Recall trong bài toán này.
+- Dataset được chọn: IBM Employee Attrition (1.470 mẫu, 13 đặc trưng)
+- Biến mục tiêu: `Attrition` (Yes/No) - bài toán Classification nhị phân
+- Không nên chỉ dùng Accuracy để đánh giá - cần ưu tiên F1-score và Recall trong bài toán này
+- Kết quả chưa cao chủ yếu do mất cân bằng lớp nặng và bộ đặc trưng hạn chế
+- Mô hình tốt nhất: **Logistic Regression** với `Test F1 = 0.3514`, `Test ROC-AUC = 0.6789`. Tuy nhiên,vVới F1 chỉ đạt 0.35, kết quả chưa thực sự đủ tin cậy để triển khai thực tế do mất cân bằng lớp nặng và tập đặc trưng còn hạn chế. Kết quả này chỉ phù hợp làm baseline để so sánh với các cải tiến tiếp theo
 
 ### ***Hướng cải thiện***
 
-Nếu có thêm thời gian, có thể thêm:
+Nếu có thêm thời gian, có thể cải thiện thêm:
 
 1. Kỹ thuật xử lý mất cân bằng lớp: Áp dụng SMOTE (Synthetic Minority Oversampling Technique) để tạo thêm mẫu lớp thiểu số, hoặc undersampling lớp đa số.
 
