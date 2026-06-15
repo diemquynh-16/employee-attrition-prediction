@@ -49,7 +49,7 @@ def get_estimators() -> dict:
 # Training ─────────────────────────────────────────────────────────
 def train_all_models(X_train, y_train, numeric_features: list, categorical_features: list, models_dir: Path | None = None) -> dict:
     """
-    Huấn luyện tất cả mô hình, tuỳ chọn lưu .pkl.
+    Huấn luyện tất cả mô hình, lưu .pkl.
 
     Parameters
     ----------
