@@ -1,82 +1,86 @@
-# **IBM Employee Attrition - Classification**
+# **IBM Employee Attrition Prediction - Classification**
 
-**Môn học:** Nhập môn Khoa học Dữ liệu  
-**Bài toán:** Dự đoán nhân viên có nghỉ việc hay không (`Attrition`: Yes / No)  
-**Loại bài toán:** Binary Classification  
+**Subject:** Introduction to Data Science  
+**Task:** Predicting employee turnover (`Attrition`: Yes / No)  
+**Problem Type:** Binary Classification (Imbalanced Dataset)  
+**Tech Stack:** Python, Pandas, NumPy, Scikit-learn, Matplotlib, Seaborn  
 
 ---
+## **Project Overview & Business Context**
 
-## ***Cấu trúc thư mục***
+Employee turnover imposes significant financial and operational costs on organizations due to recruitment, onboarding, and productivity loss. This project builds an end-to-end machine learning pipeline on the **IBM HR Analytics Dataset** to:
+1. Uncover key demographic, compensation, and workplace satisfaction drivers behind employee attrition through statistical exploratory data analysis (EDA).
+2. Train and benchmark multiple binary classification models under severe class imbalance.
+3. Prioritize **Recall** and **ROC-AUC** over raw accuracy so HR teams can proactively identify high-risk employees before they leave.
+---
+
+## **Project Structure**
 
 ```
-HW2_24280042_QuangDiemQuynh/
 ├── data/
-│   ├── IBM.csv                         # Dataset gốc (1470 mẫu, 13 cột)
-│   └── README.md                       # Mô tả dataset
+│   ├── IBM.csv             # Raw dataset (1,470 records, 13 features)
+│   └── README.md           # Dataset description
 │
 ├── notebooks/
-│   ├── 00_eda.ipynb                    # Phân tích dữ liệu khám phá (EDA)
-│   └── 01_data_preprocessing.ipynb     # Tiền xử lý dữ liệu
+│   ├── 00_eda.ipynb        # Exploratory Data Analysis (EDA)
+│   └── 01_data_preprocessing.ipynb     # Data preprocessing
 │
 ├── src/
-│   ├── __init__.py
-│   ├── preprocessing.py                # Hàm load, clean, prepare_features, build_preprocessor, build_pipeline
-│   ├── classification_models.py        # Định nghĩa mô hình + train_all_models
-│   └── evaluation.py                   # Tính chỉ số, vẽ biểu đồ, lưu kết quả
+│   ├── init.py
+│   ├── preprocessing.py      # Data loading, cleaning, feature prep
+│   ├── classification_models.py        # Model training workflow
+│   └── evaluation.py         # Metrics computation, visualization & result logging
 │
 ├── outputs/
-│   ├── figures_eda/                    # Biểu đồ EDA (target distribution, continuous, ordinal, categorical, outlier, correlation)
-│   ├── figures_evaluate/               # Biểu đồ đánh giá (confusion matrix, ROC, model comparison, learning/validation curve, feature importance)
-│   ├── models/                         # Mô hình đã train (.pkl)
-│   └── metrics/                        # Kết quả đánh giá (results.csv, classification_reports.csv, learning/validation curve, JSON từng mô hình)
+│   ├── figures_eda/          # EDA plots
+│   ├── figures_evaluate/     # Evaluation plots
+│   ├── models/               # Saved trained models (.pkl)
+│   └── metrics/              # Evaluation results
 │
-├── REPORT.md                           # Báo cáo
-├── NHAN_XET_KET_QUA.md                 # Nhận xét chi tiết kết quả từng mô hình
-├── main.py                             # Pipeline end-to-end
+├── REPORT.md                 # Detailed project report (Vietnamese)
+├── NHAN_XET_KET_QUA.md       # Model-by-model performance analysis (Vietnamese)
+├── main.py                   # End-to-end pipeline
 ├── README.md
 └── requirements.txt
 ```
 
 ---
 
-## ***Cài đặt môi trường***
+## **Environment Setup & Usage**
 
+### ***Installation***
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate        # Linux/macOS
-# hoặc: .venv\Scripts\activate   # Windows
+# or: .venv\Scripts\activate      # Windows
 
 pip install -r requirements.txt
 ```
 
----
-
-## ***Chạy chương trình***
-
+### ***Run End-to-End Pipeline***
 ```bash
 python main.py
 ```
-
-Chương trình sẽ tự động chạy toàn bộ quy trình và lưu kết quả vào `outputs/`.
+Executing `main.py` automatically runs preprocessing, trains all 4 classification models, computes evaluation metrics, and exports all plots and artifacts to `outputs/`.
 
 ---
 
-## ***Kết quả chính***
+## **Key Results**
 
-| Mô hình | Test Accuracy | Test Precision | Test Recall | Test F1 | Test ROC-AUC |
+| Model | Test Accuracy | Test Precision | Test Recall | Test F1 | Test ROC-AUC |
 |---|---:|---:|---:|---:|---:|
-| Logistic Regression | 0.673 | 0.257 | 0.553 | **0.351** | **0.679** |
-| Decision Tree | 0.653 | 0.222 | 0.468 | 0.301 | 0.57 |
+| **Logistic Regression** | 0.673 | 0.257 | **0.553** | **0.351** | **0.679** |
+| Decision Tree | 0.653 | 0.222 | 0.468 | 0.301 | 0.570 |
 | Random Forest | 0.837 | 0.462 | 0.128 | 0.200 | 0.654 |
 | KNN | 0.840 | 0.500 | 0.064 | 0.113 | 0.615 |
 
-**Mô hình tốt nhất: Logistic Regression** với F1 (0.351) và ROC-AUC (0.679) cao nhất, Recall cao nhất (0.553).
+**Best Model: Logistic Regression**, achieving the highest F1-Score (`0.351`), ROC-AUC (`0.679`), and Recall (`0.553`) for the minority class.
 
-> **Nhận xét:** Accuracy không phải chỉ số đáng tin cậy ở bài toán này vì dataset bị mất cân bằng lớp nặng (16.1% Yes / 83.9% No). KNN và Random Forest có Accuracy cao hơn nhưng Recall lớp Yes cực thấp - tức là gần như không phát hiện được nhân viên nghỉ việc.
+> **Key Takeaway:** Accuracy is misleading for this problem due to severe class imbalance (`16.1% Yes` vs. `83.9% No`). While KNN and Random Forest achieve higher overall accuracy, their Recall on the `Yes` class is extremely low—meaning they fail to identify most at-risk employees.
 
 ---
 
-## ***Outputs sau khi chạy***
+## **Generated Outputs**
 
 ```
 outputs/
@@ -119,3 +123,8 @@ outputs/
     ├── random_forest_metrics.json
     └── knn_metrics.json
 ```
+
+## **Future Improvements**
+
+* **Resampling & Threshold Tuning:** Experiment with SMOTE/ADASYN inside cross-validation folds and tune probability classification thresholds using Precision-Recall curves to improve the Precision-Recall trade-off.
+* **Gradient Boosting & Feature Engineering:** Evaluate regularized gradient boosting models (`XGBoost`, `LightGBM`) and engineer domain ratios (e.g., `IncomePerYearAtCompany`, `TenureToAgeRatio`).
